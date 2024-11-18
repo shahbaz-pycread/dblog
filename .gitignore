@@ -1,0 +1,4 @@
+.venv
+virtven/
+db.sqlite3
+media

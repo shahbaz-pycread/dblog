@@ -1,0 +1,52 @@
+{% extends "core/base.html" %}
+{% block title %}{{ post.title }}{% endblock title %}
+{% block content %}
+    <section class="hero ">
+        <div class="hero-body">
+            <div class="container">
+                {% if post.image %}
+                    <figure class="image mb-6">
+                        <img src="{{ post.image.url }}">
+                    </figure>
+                {% endif %}
+                <section class="section">
+                    <div class="columns">
+                    <div class="column is-8 is-offset-2">
+
+                            
+                            <h1 class="title">{{ post.title }}</h1>
+                            
+                            <p>{{ post.body }}</p>
+                            <p class='pt-2'>By - <strong>{{ post.author.first_name }} {{ post.author.last_name }}</strong></p>
+                            <p>{{post.created_at|timesince}} ago</p>
+                            <p><small>Category: <a href="{% url "category_detail" post.category.slug %}">{{ post.category }}</a></small></p>
+                            <hr>
+                            <h2 class="subtitle is-4">Comments</h2>
+                            <form method="post" class="mb-6">
+                                {% csrf_token %}
+                                {{ form }}
+
+                                <div class='field'>
+                                    <div class='control'>
+                                        <button class='button is-success'>Add Comment</button>
+                                    </div>
+                                </div>
+                            </form>
+                            {% for comment in post.comments.all %}
+                                <article class = 'media box'>
+                                    <div class="media-content">
+                                        <strong>{{ comment.name }}</strong><small>{{ comment.created_at|timesince }} ago</small><br>
+                                        <p>{{comment.comment}}</p>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                    </div>
+                    </div>
+                </section>
+                
+                
+            </div>
+        </div>
+    </section>    
+
+{% endblock content %}

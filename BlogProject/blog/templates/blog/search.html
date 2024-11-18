@@ -1,0 +1,38 @@
+{% extends "core/base.html" %}
+{% block title %}Search{% endblock title %}
+{% block content %}
+
+  
+    <section class="hero ">
+        <div class="hero-body">
+            <div class="container">
+                <div class="content is-medium ">
+                    <h1>Search results</h1>
+                    <h3>Query "{{ query }}"</h3>
+                </div>
+                {% for post in posts %}
+                <section class="section">
+                    <div class="columns">
+                        <div class="column is-8 is-offset-2">
+                            <h2 class="subtitle is-4">{{post.created_at|date:"F d, Y"}}</h2>
+                            <a href="{% url "detail" post.category.slug post.slug %}">
+                                <h1 class="title">{{ post.title }}</h1>
+                                <p>{{ post.intro }}</p>
+                            </a>
+                        </div>
+                           
+                    </div>
+                </section>
+                <div class="is-divider"></div>
+                {% empty %}
+                <div class='content'>
+                        <p>No result found for the given query</p>
+                </div> 
+                {% endfor %}
+            </div>
+        </div>
+    </section>    
+  
+  
+ 
+{% endblock content %}
